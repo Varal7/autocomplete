@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from ldap_back.views import ldap_search
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^ldap_search$', ldap_search, name="ldap_search"),
 ]
