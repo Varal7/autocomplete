@@ -13,7 +13,7 @@ def attribute_getter(x, attribute):
     return None
 
 
-def get_users_by_uid(uid_substring, promo=None, platal=None):
+def get_users_by_uid(uid_substring, promo=None, platal=None, force_all=False):
     opt1 = opt2 = ""
     if promo:
         opt1 = "(brPromo=" + str(promo) + ")"
@@ -32,6 +32,11 @@ def get_users_by_uid(uid_substring, promo=None, platal=None):
                             'room': attribute_getter(x, "brRoom"),
                             'promo': attribute_getter(x, "brPromo"),
                              }, results))
+    if not force_all:
+        results = [x for x in results if x["mail"] != "undef@none.none"]
+
+    results.sort(key=lambda x: int(x["promo"]), reverse=True)
+
     return results
 
 
