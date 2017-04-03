@@ -1,0 +1,17 @@
+.dropdown-menu li{
+  width: 600px;
+  }
+
+.ldap-item .img-container {
+  float: left;
+  margin-right: 10px;
+  padding: 2px;
+  width: 36px;
+  overflow: hidden;
+}
+
+.ldap-item img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
