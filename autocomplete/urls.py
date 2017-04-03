@@ -17,8 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from ldap_back.views import ldap_search
+from autocomplete_front.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', index, name="index"),
     url(r'^ldap_search$', ldap_search, name="ldap_search"),
 ]

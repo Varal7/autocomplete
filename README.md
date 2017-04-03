@@ -2,7 +2,7 @@
 
 Make use of Frankiz's LDAP to autocomplete email adresses and other info
 
-# Installation
+## Installation
 
 ### Setup the virtualenv
 
@@ -23,4 +23,12 @@ pip install -r requirements.txt
 
 ```
 ./manage.py runserver
+```
+
+## Production
+
+Set `DEBUG` to `False` and collect static files.
+
+```
+./manage.py colllectstatic
 ```
