@@ -13,6 +13,10 @@ def attribute_getter(x, attribute):
     return None
 
 
+def url_from_photo(x):
+    return "https://www.frankiz.net/image/small/" + ("404" if not x else x)
+
+
 def get_users_by_uid(uid_substring, promo=None, platal=None, force_all=False):
     opt1 = opt2 = ""
     if promo:
@@ -31,11 +35,12 @@ def get_users_by_uid(uid_substring, promo=None, platal=None, force_all=False):
                             'phone': attribute_getter(x, "brPhone"),
                             'room': attribute_getter(x, "brRoom"),
                             'promo': attribute_getter(x, "brPromo"),
+                            'photo': url_from_photo(attribute_getter(x, "brPhoto")),
                              }, results))
     if not force_all:
         results = [x for x in results if x["mail"] != "undef@none.none"]
 
-    results.sort(key=lambda x: int(x["promo"]), reverse=True)
+    results.sort(key=lambda x: 0 if x["promo"] is None else int(x["promo"]), reverse=True)
 
     return results
 

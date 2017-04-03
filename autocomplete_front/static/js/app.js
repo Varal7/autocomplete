@@ -5,7 +5,7 @@ var app = new Vue({
     },
     data: function() {
         return {
-            ldapTemplate: '{{ item.mail }}',
+            ldapTemplate: '<img width="18px" height="18px" :src="item.photo"> <span>{{item.mail}} - {{item.firstname}} {{item.lastname}} ({{item.promo}})</span> ',
         }
     },
     methods: {
