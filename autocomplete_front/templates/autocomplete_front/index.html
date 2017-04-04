@@ -12,14 +12,44 @@
     <link href="{% static "css/custom.css" %}" rel="stylesheet">
   </head>
   <body>
-  <div id="app" class="container">
-      <h1>Autocomplete.bin</h1>
-      <br /> <br />
+  {%  verbatim %}
+      <div id="app" class="container">
+          <h1>Autocomplete.bin</h1>
+          <br /> <br />
+          <person :person="current">
+          </person>
+          <br /> <br />
+          <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback">
+          </typeahead>
 
-  <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback">
-</typeahead>
+      </div>
 
-  </div>
+      <template id="person">
+          <div v-if="person" class="panel panel-primary person">
+              <div class="panel-heading">
+                  {{ person.firstname }} {{ person.lastname }}
+              </div>
+              <div class="panel-body">
+                  <div class="row">
+                      <div class="img-container col-md-2">
+                          <img height="100px" :src="person.photo">
+                      </div>
+                      <div class="col-md-10">
+                          <p>
+                              <strong>First name :</strong> {{ person.firstname  }}<br/>
+                              <strong>Last name :</strong> {{ person.lastname  }}<br/>
+                              <strong>Promo :</strong> {{ person.promo }}<br/>
+                              <strong>Room :</strong> {{ person.room  }}<br/>
+                              <strong>Email :</strong> <a :href="'mailto:' + person.mail">{{ person.mail }}</a><br/>
+                              <strong>Phone :</strong> <a :href="'tel:' + person.phone">{{ person.phone }}</a><br/>
+                              <strong>uid :</strong> {{ person.uid  }}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </template>
+  {% endverbatim %}
     <script src="{% static "js/lib/vue.js" %}"></script>
     <script src="{% static "js/lib/vue-strap.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>

@@ -1,3 +1,8 @@
+Vue.component('person', {
+    template: '#person',
+    props: ['person']
+});
+
 var app = new Vue({
     el: '#app',
     components: {
@@ -6,13 +11,15 @@ var app = new Vue({
     data: function() {
         return {
             ldapTemplate: '<div class="ldap-item"><div class="img-container"><img height="36px" :src="item.photo"></div><p><strong>{{item.firstname}} {{item.lastname}} ({{item.promo}})</strong> <br/> {{item.mail}}</p> </div>',
+            current: null
         }
     },
     methods: {
-        ldapCallback: function(items, targetVM) {
+        ldapCallback: function(item, targetVM) {
             const that = targetVM;
             that.reset();
-            that.value = items.mail;
+            that.value = item.mail;
+            this.current = item;
         }
     }
 });
