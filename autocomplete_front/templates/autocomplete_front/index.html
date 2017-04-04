@@ -22,6 +22,8 @@
           </typeahead>
           <br />
           <results :results="results"></results>
+          <br />
+          <button v-on:click="clear" class="btn btn-danger">Clear</button>
       </div>
 
       <template id="person">

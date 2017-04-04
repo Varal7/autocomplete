@@ -37,7 +37,22 @@ var app = new Vue({
     methods: {
         ldapCallback: function(item) {
             this.current = item;
-            this.results.push(item)
+            this.results.push(item);
+        },
+        clear: function(){
+            this.results = [];
+        }
+    },
+    watch: {
+        results: function(val) {
+            sessionStorage.results = JSON.stringify(this.results);
+        }
+    },
+    created: function() {
+        var r = sessionStorage.results;
+        if (r) {
+            var res = JSON.parse(r);
+            this.results = res;
         }
     }
 });
