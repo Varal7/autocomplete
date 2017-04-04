@@ -18,10 +18,10 @@
           <br /> <br />
           <person :person="current">
           </person>
-          <br /> <br />
           <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback">
           </typeahead>
-
+          <br />
+          <results :results="results"></results>
       </div>
 
       <template id="person">
@@ -48,6 +48,10 @@
                   </div>
               </div>
           </div>
+      </template>
+
+      <template id="results">
+          <textarea class="form-control" rows="15">{{ output }}</textarea>
       </template>
   {% endverbatim %}
     <script src="{% static "js/lib/vue.js" %}"></script>
