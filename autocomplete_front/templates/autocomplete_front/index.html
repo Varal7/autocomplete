@@ -16,12 +16,32 @@
       <div id="app" class="container">
           <h1>Autocomplete.bin</h1>
           <br /> <br />
-          <person :person="current">
-          </person>
-          <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback">
-          </typeahead>
+          <div class="row row-eq-height">
+              <div class="col-md-6">
+                  <div class="panel panel-primary">
+                      <div class="panel-heading">
+                          Choose what field to export
+                      </div>
+                      <div class="panel-body">
+                          <!--TODO: Use  http://rubaxa.github.io/Sortable/ -->
+                          <div class="checkbox"><label><input type="checkbox" value="firstname" v-model="choices.firstname">First name</label></div>
+                          <div class="checkbox"><label><input type="checkbox" value="lastname" v-model="choices.lastname">Last name</label></div>
+                          <div class="checkbox"><label><input type="checkbox" value="mail" v-model="choices.mail">Email</label></div>
+                          <div class="checkbox"><label><input type="checkbox" value="promo" v-model="choices.promo">Promo</label></div>
+                          <div class="checkbox"><label><input type="checkbox" value="phone" v-model="choices.phone">Phone</label></div>
+                          <div class="checkbox"><label><input type="checkbox" value="room" v-model="choices.room">Room</label></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <person :person="current"></person>
+              </div>
+          </div>
+          <div class="well-lg">
+              <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback"></typeahead>
+          </div>
           <br />
-          <results :results="results"></results>
+          <results :results="results" :choices="choices"></results>
           <br />
           <button v-on:click="clear" class="btn btn-danger">Clear</button>
       </div>
@@ -53,7 +73,10 @@
       </template>
 
       <template id="results">
-          <textarea class="form-control" rows="15">{{ output }}</textarea>
+          <div>
+              <textarea readonly class="form-control" rows="15">{{ output }}</textarea><br />
+              <button v-on:click="export_csv" class="pull-right btn btn-success">Export as CSV</button>
+          </div>
       </template>
   {% endverbatim %}
     <script src="{% static "js/lib/vue.js" %}"></script>

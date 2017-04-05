@@ -5,7 +5,7 @@ Vue.component('person', {
 
 Vue.component('results', {
     template: '#results',
-    props: ['results'],
+    props: ['results', 'choices'],
     computed: {
         output: function() {
             vm = this;
@@ -13,13 +13,28 @@ Vue.component('results', {
                 return "";
             } else {
                 return vm.results.map(function(item) {
-                        return item.mail
-                    }).reduce(function(a,b) {
-                        return b + ";\n" + a
-                    });
+                        var fields = [];
+                        var c = vm.choices;
+                        if (c.firstname) { fields.push(item.firstname) }
+                        if (c.lastname) { fields.push(item.lastname) }
+                        if (c.mail) { fields.push(item.mail) }
+                        if (c.promo) { fields.push(item.promo) }
+                        if (c.phone) { fields.push(item.phone) }
+                        if (c.room) { fields.push(item.room) }
+                        return fields.join(";") }
+                    ).join("\n");
             }
         }
+    },
+    methods: {
+        export_csv: function() {
+            var csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += this.output;
+            var encodedUri = encodeURI(csvContent);
+            window.open(encodedUri);
+        }
     }
+
 });
 
 var app = new Vue({
@@ -31,7 +46,14 @@ var app = new Vue({
         return {
             ldapTemplate: '<div class="ldap-item"><div class="img-container"><img height="36px" :src="item.photo"></div><p><strong>{{item.firstname}} {{item.lastname}} ({{item.promo}})</strong> <br/> {{item.mail}}</p> </div>',
             current: null,
-            results: []
+            results: [],
+            choices: {
+                mail : true,
+                phone: false,
+                firstname: false,
+                lastname: false,
+                room: false,
+                promo: false}
         }
     },
     methods: {
@@ -39,7 +61,7 @@ var app = new Vue({
             this.current = item;
             this.results.push(item);
         },
-        clear: function(){
+        clear: function() {
             this.results = [];
         }
     },
@@ -53,6 +75,7 @@ var app = new Vue({
         if (r) {
             var res = JSON.parse(r);
             this.results = res;
+            this.current = res[0];
         }
     }
 });
