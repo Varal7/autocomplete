@@ -67,11 +67,11 @@ var app = new Vue({
     },
     watch: {
         results: function(val) {
-            sessionStorage.results = JSON.stringify(this.results);
+            localStorage.results = JSON.stringify(this.results);
         }
     },
     created: function() {
-        var r = sessionStorage.results;
+        var r = localStorage.results;
         if (r) {
             var res = JSON.parse(r);
             this.results = res;
