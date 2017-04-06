@@ -58,8 +58,10 @@ var app = new Vue({
     },
     methods: {
         ldapCallback: function(item) {
-            this.current = item;
-            this.results.push(item);
+            if (item) {
+                this.current = item;
+                this.results.push(item);
+            }
         },
         clear: function() {
             this.results = [];
