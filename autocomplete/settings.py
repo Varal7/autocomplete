@@ -145,6 +145,6 @@ STATIC_URL = '/assets/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "assets/static/")
 
 try:
-    from local_settings import *
+    from autocomplete.local_settings import *
 except ImportError:
     pass
