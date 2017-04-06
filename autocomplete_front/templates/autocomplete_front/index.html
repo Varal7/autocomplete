@@ -15,7 +15,10 @@
       <div id="app" class="container">
           <h1>Autocomplete.bin</h1>
           {% if request.user.is_authenticated %}
-              <span class="label label-success pull-right">Authentificated as {{ request.user }}</span>
+              <div class="pull-right">
+                  <span class="label label-success">Authentificated as {{ request.user }}</span>
+                  <a class="btn btn-default" href="{% url 'cas_ng_logout' %}">Logout</a>
+              </div>
           {% else %}
               <span class="label label-primary pull-right">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
           {% endif %}
