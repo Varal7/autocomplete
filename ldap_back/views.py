@@ -1,9 +1,10 @@
 import ldap
 from django.http import JsonResponse
 
+from django.conf import settings
 
 def make_ldap_query(filter):
-    con = ldap.initialize('ldap://frankiz.eleves.polytechnique.fr', bytes_mode=False)
+    con = ldap.initialize(settings.LDAP_SERVER, bytes_mode=False)
     return con.search_s('dc=frankiz,dc=net', ldap.SCOPE_SUBTREE, filter)
 
 
