@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ldap_back',
     'autocomplete_front',
+    'django_cas_ng',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'autocomplete.middlewares.NeedToLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'autocomplete.urls'
@@ -116,6 +118,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'django_cas_ng.backends.CASBackend',
+)
+CAS_SERVER_URL = "https://cas.binets.fr/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

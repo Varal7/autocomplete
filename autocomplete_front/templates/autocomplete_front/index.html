@@ -12,9 +12,13 @@
     <link href="{% static "css/custom.css" %}" rel="stylesheet">
   </head>
   <body>
-  {%  verbatim %}
       <div id="app" class="container">
           <h1>Autocomplete.bin</h1>
+          {% if request.user.is_authenticated %}
+              <span class="label label-success pull-right">Authentificated as {{ request.user }}</span>
+          {% else %}
+              <span class="label label-primary pull-right">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
+          {% endif %}
           <br /> <br />
           <div class="row">
               <div class="col-md-6">
@@ -46,6 +50,7 @@
           <button v-on:click="clear" class="btn btn-danger">Clear</button>
       </div>
 
+      {%  verbatim %}
       <template id="person">
           <div v-if="person" class="panel panel-primary person">
               <div class="panel-heading">

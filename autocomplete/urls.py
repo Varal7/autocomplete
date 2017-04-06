@@ -18,9 +18,12 @@ from django.contrib import admin
 
 from ldap_back.views import ldap_search
 from autocomplete_front.views import index
+from django_cas_ng.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
     url(r'^ldap_search$', ldap_search, name="ldap_search"),
+    url(r'^login$', login, name='cas_ng_login'),
+    url(r'^logout$', logout, name='cas_ng_logout'),
 ]

@@ -2,3 +2,4 @@ Django==1.10.5
 
 django-cors-headers==2.0.2
 pyldap==2.4.28
+django-cas-ng==3.5.7
