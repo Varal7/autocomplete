@@ -66,10 +66,10 @@
               </div>
               <div class="panel-body">
                   <div class="row">
-                      <div class="img-container col-md-2">
+                      <div class="img-container col-md-3">
                           <img height="100px" :src="person.photo">
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-9">
                           <p>
                               <strong>First name :</strong> {{ person.firstname  }}<br/>
                               <strong>Last name :</strong> {{ person.lastname  }}<br/>
@@ -92,20 +92,22 @@
               </div>
               <table class="table table-hover">
                   <tr>
-                      <th>First name</th>
-                      <th>Last name</th>
-                      <th>Email</th>
-                      <th>Promo</th>
-                      <th>Phone</th>
-                      <th>Room</th>
+                      <th>uid</th>
+                      <th v-if="choices.firstname">First name</th>
+                      <th v-if="choices.lastname">Last name</th>
+                      <th v-if="choices.mail">Email</th>
+                      <th v-if="choices.promo">Promo</th>
+                      <th v-if="choices.phone">Phone</th>
+                      <th v-if="choices.room">Room</th>
                   </tr>
                   <tr v-for="person in people">
-                      <td>{{ person.firstname }}</td>
-                      <td>{{ person.lastname }}</td>
-                      <td>{{ person.mail }}</td>
-                      <td>{{ person.promo }}</td>
-                      <td>{{ person.phone }}</td>
-                      <td>{{ person.room }}</td>
+                      <td>{{ person.uid }}</td>
+                      <td v-if="choices.firstname">{{ person.firstname }}</td>
+                      <td v-if="choices.lastname">{{ person.lastname }}</td>
+                      <td v-if="choices.mail">{{ person.mail }}</td>
+                      <td v-if="choices.promo">{{ person.promo }}</td>
+                      <td v-if="choices.phone">{{ person.phone }}</td>
+                      <td v-if="choices.room">{{ person.room }}</td>
                   </tr>
               </table>
           </div>
