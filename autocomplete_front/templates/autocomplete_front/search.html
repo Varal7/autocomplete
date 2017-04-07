@@ -23,7 +23,7 @@
                   <div class="panel-heading">
                       Choose what field to export
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body" @click="update_storage_choices">
                       <!--TODO: Use  http://rubaxa.github.io/Sortable/ -->
                       <div class="checkbox"><label><input type="checkbox" value="firstname" v-model="choices.firstname">First name</label></div>
                       <div class="checkbox"><label><input type="checkbox" value="lastname" v-model="choices.lastname">Last name</label></div>

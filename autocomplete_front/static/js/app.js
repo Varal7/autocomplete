@@ -122,15 +122,19 @@ var app = new Vue({
         saveModal: function() {
             this.people.unshift(this.current);
             this.showModal = false;
+        },
+        update_storage_choices: function() {
+            localStorage.choices = JSON.stringify(this.choices);
         }
     },
     watch: {
-        people: function(val) {
+        people: function() {
             localStorage.people = JSON.stringify(this.people);
         }
     },
     created: function() {
         var r = localStorage.people;
+        var c = localStorage.choices;
         if (r) {
             var res = JSON.parse(r);
             this.people = res;
@@ -138,6 +142,9 @@ var app = new Vue({
             if (newest && newest.uid != "") {
                 this.current = newest;
             }
+        }
+        if (c) {
+           this.choices = JSON.parse(c);
         }
     }
 });
