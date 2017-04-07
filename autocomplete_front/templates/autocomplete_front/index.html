@@ -23,7 +23,7 @@
               <span class="label label-primary pull-right">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
           {% endif %}
           <br /> <br />
-          <div class="row">
+          <div class="row" v-if="people.length">
               <div class="col-md-6">
                   <div class="panel panel-primary">
                       <div class="panel-heading">
@@ -51,11 +51,9 @@
               <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback"></typeahead>
           </div>
           <br />
-          <results-table :people="people" :choices="choices"></results-table>
+          <results-table :people="people" :choices="choices" v-on:delete_item="delete_item" v-on:clear="clear"></results-table>
           <br />
           <results :people="people" :choices="choices"></results>
-          <br />
-          <button v-on:click="clear" class="btn btn-danger">Clear</button>
       </div>
 
       {%  verbatim %}
@@ -86,7 +84,7 @@
       </template>
 
       <template id="results-table">
-          <div class="panel panel-primary">
+          <div class="panel panel-primary" v-if="people.length">
               <div class="panel-heading">
                  Results
               </div>
@@ -99,8 +97,9 @@
                       <th v-if="choices.promo">Promo</th>
                       <th v-if="choices.phone">Phone</th>
                       <th v-if="choices.room">Room</th>
+                      <th class="text-center"><a class="btn btn-danger btn-xs" v-on:click="clear">Delete all</a></th>
                   </tr>
-                  <tr v-for="person in people">
+                  <tr v-for="(person, index) in people">
                       <td>{{ person.uid }}</td>
                       <td v-if="choices.firstname">{{ person.firstname }}</td>
                       <td v-if="choices.lastname">{{ person.lastname }}</td>
@@ -108,6 +107,7 @@
                       <td v-if="choices.promo">{{ person.promo }}</td>
                       <td v-if="choices.phone">{{ person.phone }}</td>
                       <td v-if="choices.room">{{ person.room }}</td>
+                      <td class="text-center"><a class="btn btn-warning btn-xs" v-on:click="delete_item(index)"><i class="glyphicon glyphicon-remove"></i></a></td>
                   </tr>
               </table>
           </div>
@@ -115,8 +115,8 @@
       </template>
 
       <template id="results">
-          <div>
-              <textarea readonly class="form-control" rows="15">{{ output }}</textarea><br />
+          <div v-if="output">
+              <textarea readonly class="form-control" rows="5">{{ output }}</textarea><br />
               <button v-on:click="export_csv" class="pull-right btn btn-success">Export as CSV</button>
           </div>
       </template>

@@ -6,7 +6,16 @@ Vue.component('person', {
 
 Vue.component('results-table', {
     template: '#results-table',
-    props: ['people', 'choices']
+    props: ['people', 'choices'],
+    methods: {
+        delete_item: function(i) {
+            console.log(i);
+            this.$emit('delete_item', i)
+        },
+        clear: function() {
+            this.$emit('clear')
+        }
+    }
 });
 
 Vue.component('results', {
@@ -71,6 +80,9 @@ var app = new Vue({
         },
         clear: function() {
             this.people = [];
+        },
+        delete_item: function(i) {
+            this.people.splice(i, 1);
         }
     },
     watch: {
