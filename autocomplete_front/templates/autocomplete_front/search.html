@@ -17,7 +17,7 @@
           </div>
       {% endif %}
       <br /> <br />
-      <div class="row" v-if="people.length">
+      <div class="row">
           <div class="col-md-6">
               <div class="panel panel-primary">
                   <div class="panel-heading">
@@ -31,6 +31,7 @@
                       <div class="checkbox"><label><input type="checkbox" value="promo" v-model="choices.promo">Promo</label></div>
                       <div class="checkbox"><label><input type="checkbox" value="phone" v-model="choices.phone">Phone</label></div>
                       <div class="checkbox"><label><input type="checkbox" value="room" v-model="choices.room">Room</label></div>
+                      <div class="checkbox"><label><input type="checkbox" value="comment" v-model="choices.comment">Custom comment</label></div>
                   </div>
               </div>
           </div>

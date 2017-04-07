@@ -15,7 +15,8 @@ Vue.component('results-table', {
                mail: "",
                promo: "",
                phone: "",
-               room: ""
+               room: "",
+               comment: ""
         };
        return {
            blank_person: blank_person,
@@ -56,6 +57,7 @@ Vue.component('results', {
                         if (c.promo) { fields.push(item.promo) }
                         if (c.phone) { fields.push(item.phone) }
                         if (c.room) { fields.push(item.room) }
+                        if (c.comment) { fields.push(item.comment) }
                         return fields.join(";") }
                     ).join("\n");
             }
@@ -88,14 +90,17 @@ var app = new Vue({
                 firstname: false,
                 lastname: false,
                 room: false,
-                promo: false}
+                promo: false,
+                comment: false
+            }
         }
     },
     methods: {
         ldapCallback: function(item) {
             if (item) {
                 this.current = item;
-                this.people.unshift(item);
+                this.current["comment"] = ""
+                this.people.unshift(this.current);
             }
         },
         clear: function() {
@@ -119,7 +124,7 @@ var app = new Vue({
             var res = JSON.parse(r);
             this.people = res;
             var newest = res[0];
-            if (newest.uid != "") {
+            if (newest && newest.uid != "") {
                 this.current = newest;
             }
         }
