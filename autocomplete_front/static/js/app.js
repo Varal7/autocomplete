@@ -118,7 +118,10 @@ var app = new Vue({
         if (r) {
             var res = JSON.parse(r);
             this.people = res;
-            this.current = res[0];
+            var newest = res[0];
+            if (newest.uid != "") {
+                this.current = newest;
+            }
         }
     }
 });
