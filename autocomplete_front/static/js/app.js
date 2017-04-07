@@ -5,14 +5,14 @@ Vue.component('person', {
 
 Vue.component('results', {
     template: '#results',
-    props: ['results', 'choices'],
+    props: ['people', 'choices'],
     computed: {
         output: function() {
             vm = this;
-            if (vm.results.length == 0) {
+            if (vm.people.length == 0) {
                 return "";
             } else {
-                return vm.results.map(function(item) {
+                return vm.people.map(function(item) {
                         var fields = [];
                         var c = vm.choices;
                         if (c.firstname) { fields.push(item.firstname) }
@@ -46,7 +46,7 @@ var app = new Vue({
         return {
             ldapTemplate: '<div class="ldap-item"><div class="img-container"><img height="36px" :src="item.photo"></div><p><strong>{{item.firstname}} {{item.lastname}} ({{item.promo}})</strong> <br/> {{item.mail}}</p> </div>',
             current: null,
-            results: [],
+            people: [],
             choices: {
                 mail : true,
                 phone: false,
@@ -60,23 +60,23 @@ var app = new Vue({
         ldapCallback: function(item) {
             if (item) {
                 this.current = item;
-                this.results.push(item);
+                this.people.unshift(item);
             }
         },
         clear: function() {
-            this.results = [];
+            this.people = [];
         }
     },
     watch: {
-        results: function(val) {
-            localStorage.results = JSON.stringify(this.results);
+        people: function(val) {
+            localStorage.people = JSON.stringify(this.people);
         }
     },
     created: function() {
-        var r = localStorage.results;
+        var r = localStorage.people;
         if (r) {
             var res = JSON.parse(r);
-            this.results = res;
+            this.people = res;
             this.current = res[0];
         }
     }
