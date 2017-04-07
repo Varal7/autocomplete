@@ -1,0 +1,14 @@
+<modal v-model="showModal" @ok="showModal = false" v-if="current">
+    <form id="modalForm" v-on:submit.prevent="saveModal"></form>
+    <div slot="modal-header" class="modal-header">
+        <h4 class="modal-title">
+            {% verbatim %}
+            Add comment for {{ current.firstname }} {{ current.lastname }}
+            {% endverbatim %}
+        </h4>
+    </div>
+    <input autofocus class="form-control" form="modalForm" v-model="current.comment"/>
+    <div slot="modal-footer" class="modal-footer">
+        <button type="submit" form="modalForm" class="btn btn-success">Save</button>
+    </div>
+</modal>

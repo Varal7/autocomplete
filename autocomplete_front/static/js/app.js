@@ -77,13 +77,15 @@ Vue.component('results', {
 var app = new Vue({
     el: '#app',
     components: {
-        typeahead: VueStrap.typeahead
+        typeahead: VueStrap.typeahead,
+        modal: VueStrap.modal
     },
     data: function() {
         return {
             ldapTemplate: '<div class="ldap-item"><div class="img-container"><img height="36px" :src="item.photo"></div><p><strong>{{item.firstname}} {{item.lastname}} ({{item.promo}})</strong> <br/> {{item.mail}}</p> </div>',
             current: null,
             people: [],
+            showModal: false,
             choices: {
                 mail : true,
                 phone: false,
@@ -92,15 +94,20 @@ var app = new Vue({
                 room: false,
                 promo: false,
                 comment: false
-            }
+            },
+            newComment: ""
         }
     },
     methods: {
         ldapCallback: function(item) {
             if (item) {
                 this.current = item;
-                this.current["comment"] = ""
-                this.people.unshift(this.current);
+                this.current["comment"] = "";
+                if (this.choices.comment) {
+                    this.showModal = true;
+                } else {
+                    this.people.unshift(this.current);
+                }
             }
         },
         clear: function() {
@@ -111,6 +118,10 @@ var app = new Vue({
         },
         add_item: function(item) {
             this.people.unshift(item);
+        },
+        saveModal: function() {
+            this.people.unshift(this.current);
+            this.showModal = false;
         }
     },
     watch: {

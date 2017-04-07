@@ -49,7 +49,9 @@
       <results-table :people="people" :choices="choices" v-on:delete_item="delete_item" v-on:clear="clear" v-on:add_item="add_item"></results-table>
       <br />
       <results :people="people" :choices="choices"></results>
+      {% include "autocomplete_front/modal.html" %}
   </div>
+
 {% endblock %}
 
 
@@ -64,6 +66,3 @@
     <script src="{% static "js/lib/vue-strap.js" %}"></script>
     <script src="{% static "js/app.js" %}"></script>
 {% endblock %}
-
-  </body>
-</html>
