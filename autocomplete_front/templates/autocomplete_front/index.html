@@ -44,9 +44,14 @@
                   <person :person="current"></person>
               </div>
           </div>
-          <div class="well-lg">
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                  Search
+              </div>
               <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback"></typeahead>
           </div>
+          <br />
+          <results-table :people="people" :choices="choices"></results-table>
           <br />
           <results :people="people" :choices="choices"></results>
           <br />
@@ -57,7 +62,7 @@
       <template id="person">
           <div v-if="person" class="panel panel-primary person">
               <div class="panel-heading">
-                  {{ person.firstname }} {{ person.lastname }}
+                  Preview last person
               </div>
               <div class="panel-body">
                   <div class="row">
@@ -78,6 +83,33 @@
                   </div>
               </div>
           </div>
+      </template>
+
+      <template id="results-table">
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                 Results
+              </div>
+              <table class="table table-hover">
+                  <tr>
+                      <th>First name</th>
+                      <th>Last name</th>
+                      <th>Email</th>
+                      <th>Promo</th>
+                      <th>Phone</th>
+                      <th>Room</th>
+                  </tr>
+                  <tr v-for="person in people">
+                      <td>{{ person.firstname }}</td>
+                      <td>{{ person.lastname }}</td>
+                      <td>{{ person.mail }}</td>
+                      <td>{{ person.promo }}</td>
+                      <td>{{ person.phone }}</td>
+                      <td>{{ person.room }}</td>
+                  </tr>
+              </table>
+          </div>
+
       </template>
 
       <template id="results">

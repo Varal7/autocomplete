@@ -3,6 +3,12 @@ Vue.component('person', {
     props: ['person']
 });
 
+
+Vue.component('results-table', {
+    template: '#results-table',
+    props: ['people', 'choices']
+});
+
 Vue.component('results', {
     template: '#results',
     props: ['people', 'choices'],
