@@ -1,0 +1,8 @@
+{% verbatim %}
+<template id="results">
+    <div v-if="output">
+        <textarea readonly class="form-control" rows="5">{{ output }}</textarea><br />
+        <button v-on:click="export_csv" class="pull-right btn btn-success">Export as CSV</button>
+    </div>
+</template>
+{% endverbatim %}

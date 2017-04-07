@@ -1,0 +1,27 @@
+{% verbatim %}
+<template id="person">
+    <div v-if="person" class="panel panel-primary person">
+        <div class="panel-heading">
+            Preview last person
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="img-container col-md-3">
+                    <img height="100px" :src="person.photo">
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        <strong>First name :</strong> {{ person.firstname  }}<br/>
+                        <strong>Last name :</strong> {{ person.lastname  }}<br/>
+                        <strong>Promo :</strong> {{ person.promo }}<br/>
+                        <strong>Room :</strong> {{ person.room  }}<br/>
+                        <strong>Email :</strong> <a :href="'mailto:' + person.mail">{{ person.mail }}</a><br/>
+                        <strong>Phone :</strong> <a :href="'tel:' + person.phone">{{ person.phone }}</a><br/>
+                        <strong>uid :</strong> {{ person.uid  }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+{% endverbatim %}
