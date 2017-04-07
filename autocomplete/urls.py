@@ -17,13 +17,14 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from ldap_back.views import ldap_search
-from autocomplete_front.views import search
+from autocomplete_front.views import search, index
 from django_cas_ng.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', search, name="search"),
+    url(r'^search$', search, name="search"),
+    url(r'^$', index, name="index"),
     url(r'^ldap_search$', ldap_search, name="ldap_search"),
-    url(r'^login$', login, name='cas_ng_login'),
-    url(r'^logout$', logout, name='cas_ng_logout'),
+    url(r'^login$', login, name='login'),
+    url(r'^logout$', logout, name='logout'),
 ]

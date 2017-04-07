@@ -8,10 +8,13 @@
       {% if request.user.is_authenticated %}
           <div class="pull-right">
               <span class="label label-success">Authentificated as {{ request.user }}</span>
-              <a class="btn btn-default" href="{% url 'cas_ng_logout' %}">Logout</a>
+              <a class="btn btn-default" href="{% url 'logout' %}">Logout</a>
           </div>
       {% else %}
-          <span class="label label-primary pull-right">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
+          <div class="pull-right">
+              <span class="label label-primary">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
+              <a class="btn btn-default" href="{% url 'index' %}">Home</a>
+          </div>
       {% endif %}
       <br /> <br />
       <div class="row" v-if="people.length">

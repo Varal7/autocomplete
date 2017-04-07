@@ -1,10 +1,11 @@
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 def is_internal(ip):
-    return ip == "127.0.0.1" or ip[:8] == "129.104." and ip != "129.104.30.4" and ip != "129.104.30.90"
+    return ip[:8] == "129.104." and ip != "129.104.30.4" and ip != "129.104.30.90" or ip == "127.0.0.1"
 
 def needs_login(request):
-    return request.path not in ['/login']
+    return request.path not in [reverse('index'), reverse('login')]
 
 class NeedToLoginMiddleware(object):
     def __init__(self, get_response):
@@ -15,5 +16,6 @@ class NeedToLoginMiddleware(object):
         if needs_login(request):
             if not is_internal(ip):
                 if not request.user.is_authenticated():
-                    return HttpResponseRedirect("/login")
+                    url = reverse('login')
+                    return HttpResponseRedirect(url)
         return self.get_response(request)

@@ -123,6 +123,7 @@ AUTHENTICATION_BACKENDS = (
     'django_cas_ng.backends.CASBackend',
 )
 CAS_SERVER_URL = "https://cas.binets.fr/"
+CAS_IGNORE_REFERER = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

@@ -29,3 +29,11 @@
   display:         flex;
 }
 
+.wrapper {
+  text-align: center;
+}
+
+.wrapper a {
+  position: absolute;
+  top: 40%;
+}
