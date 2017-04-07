@@ -7,6 +7,21 @@ Vue.component('person', {
 Vue.component('results-table', {
     template: '#results-table',
     props: ['people', 'choices'],
+    data: function() {
+        var blank_person =  {
+               uid: "",
+               firstname: "",
+               lastname: "",
+               mail: "",
+               promo: "",
+               phone: "",
+               room: ""
+        };
+       return {
+           blank_person: blank_person,
+           new_person: JSON.parse(JSON.stringify(blank_person))
+       };
+    },
     methods: {
         delete_item: function(i) {
             console.log(i);
@@ -14,6 +29,11 @@ Vue.component('results-table', {
         },
         clear: function() {
             this.$emit('clear')
+        },
+        add_item: function() {
+            var new_person = JSON.parse(JSON.stringify(this.new_person));
+            this.new_person = JSON.parse(JSON.stringify(this.blank_person));
+            this.$emit('add_item', new_person)
         }
     }
 });
@@ -83,6 +103,9 @@ var app = new Vue({
         },
         delete_item: function(i) {
             this.people.splice(i, 1);
+        },
+        add_item: function(item) {
+            this.people.unshift(item);
         }
     },
     watch: {

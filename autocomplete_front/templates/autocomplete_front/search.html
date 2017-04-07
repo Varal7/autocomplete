@@ -45,7 +45,7 @@
           <typeahead placeholder="Search by firstname.lastname" async-key="users" :limit=20 async="ldap_search?q=" template-name="ldap-template" :template="ldapTemplate" :on-hit="ldapCallback"></typeahead>
       </div>
       <br />
-      <results-table :people="people" :choices="choices" v-on:delete_item="delete_item" v-on:clear="clear"></results-table>
+      <results-table :people="people" :choices="choices" v-on:delete_item="delete_item" v-on:clear="clear" v-on:add_item="add_item"></results-table>
       <br />
       <results :people="people" :choices="choices"></results>
   </div>
