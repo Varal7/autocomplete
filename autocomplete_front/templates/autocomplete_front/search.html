@@ -4,7 +4,7 @@
 
 {% block content %}
   <div id="app" class="container">
-      <h1>Autocomplete.bin</h1>
+      <h1><a href="{% url 'index' %}">Autocomplete.bin</a></h1>
       {% if request.user.is_authenticated %}
           <div class="pull-right">
               <span class="label label-success">Authentificated as {{ request.user }}</span>
@@ -13,7 +13,6 @@
       {% else %}
           <div class="pull-right">
               <span class="label label-primary">On-platal IP: {{ request.META.REMOTE_ADDR }}</span>
-              <a class="btn btn-default" href="{% url 'index' %}">Home</a>
           </div>
       {% endif %}
       <br /> <br />

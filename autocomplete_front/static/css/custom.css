@@ -29,11 +29,16 @@
   display:         flex;
 }
 
-.wrapper {
-  text-align: center;
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 
-.wrapper a {
-  position: absolute;
-  top: 40%;
+.intro-content {
+  margin-left: 5px;
+}
+
+.intro-step {
+  margin-bottom: 10px;
 }

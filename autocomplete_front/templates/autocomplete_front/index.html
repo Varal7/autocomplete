@@ -1,13 +1,206 @@
 {% extends "autocomplete_front/base.html" %}
 
+{% load staticfiles %}
+
 {% block content %}
 
     <div id="app" class="container">
         <h1>Autocomplete.bin</h1>
 
-        <div class="wrapper">
-            <a href="{% url 'search' %}" class="btn btn-success btn-lg">Start</a>
+        <div id="intro">
+            <div class="col-md-8 col-md-offset-2">
+                <br />
+                <p><a href="">Autcomplete.bin</a> te permet de saisir plus rapidement des listes de prénoms, noms et mails en se connectant au LDAP de Frankiz.</p>
+                <p>
+                    Tu pourras t'en servir :
+                </p>
+                <ul>
+                    <li>au forum des binets pour faire la liste des mails des personnes intéressées,</li>
+                    <li>à tes amphis retape pour les jeux / tirages au sort de ton entreprise,</li>
+                    <li>aux perm's Magnan pour collectionner des trigrammes,</li>
+                    <li>à ta kebab/burger party pour dresser la liste d'attente,</li>
+                    <li>ou à toute occasion autre occasion où tu galérais à orthographier un nom de famille sur un Google Doc ou sur une feuille volante</li>
+                </ul>
+                <br />
+
+                <div class="start-wrapper text-center">
+                    <a href="{% url 'search' %}" class="btn btn-success btn-lg">Accéder à autcomplete.bin</a>
+                </div>
+
+                <h3>Guide d'utilisation</h3>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Choix des champs à exporter</h6>
+                        <div class="intro-content">
+                            <p>
+                                Pour commencer, <strong>choisis les champs dont tu as besoin en utilisant les cases à cocher du
+                                premier paneau</strong>.<br/>
+                                Par exemple, dans ce cas simple, nous voulons simplement récupérer prénom, nom
+                                et email.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                        {% include "autocomplete_front/image.html" with alt="Cases à cocher du premier paneau" url="images/fields_to_export.png" model="modal.fields" %}
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Recherche</h6>
+                        <div class="intro-content">
+                            <p>
+                                Dans le champ de recherche, tu <strong>saisis ensuite les premières lettres du prénom ou du nom de
+                                la personne.</strong> <br/>
+                                <a href="">Autocomplete.bin</a> te proposera automatiquement des suggestions.
+                            </p>
+                            <p>
+                                <em>Astuce :</em> utilise les touches directionnelles de ton clavier pour naviguer dans les suggestions, et <code>Entrée</code> pour
+                                valider. Cela t'évite de lâcher ton clavier pour valider à la souris.
+                            </p>
+                            <p>
+                                <em>Note :</em> la recherche se fait dans toute la chaîne <code>prenom.nom</code> et que les résultats sont
+                                triés par ordre décroissant de promo.
+                            </p>
+                            <p>
+                                <em>Note :</em> la recherche attend deux secondes après votre dernière frappe de clavier avant de se lancer.
+                                Si elle semble prendre plus de temps, c'est que ta recherche n'est pas assez spécifique
+                                ou qu'il n'y a pas de résultats. Réessaye.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                        {% include "autocomplete_front/image.html" with alt="Des suggestions sont proposées à la saisie" url="images/search.png" model="modal.search" %}
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Résultats</h6>
+                        <div class="intro-content">
+                            <p>
+                                Les résultats s'affichent à deux endroits :
+                            </p>
+                            <ul>
+                                <li>En première ligne du tableau des résultats</li>
+                                <li>Dans un nouveau paneau de prévisualisation</li>
+                            </ul>
+                            <p>
+                                La croix orange <span class="label label-warning"><i class="glyphicon glyphicon-remove"></i></span> en dernière colonne te permet de supprimer une ligne du tableau. Action irréversible.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                            {% include "autocomplete_front/image.html" with alt="Affichage des résultats" url="images/results.png" model="modal.results" %}
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Ajout à la main</h6>
+                        <div class="intro-content">
+                            <p>
+                                Lorsqu'une personne n'est pas présente dans l'annuaire, tu peux l'ajouter à la main en
+                                utilisant la ligne supérieure du tableau.
+                            </p>
+                            <p>
+                                <em>Astuce :</em> Utilise la touche <code>Tab</code> pour naviguer de champ en champ et
+                                <code>Entrée</code> pour valider. Cela t'évitera de confondre le bouton
+                                <span class="label label-success">Add item</span> avec
+                                <span class="label label-danger">Delete all</span> qui sert à vider tout le tableau.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                            {% include "autocomplete_front/image.html" with alt="Ajout à la main d'une ligne" url="images/manual_add.png" model="modal.add" %}
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Le cas particulier des commentaires personalisables</h6>
+                        <div class="intro-content">
+                            <p>
+                                Pour ajouter un commentaire en fin de ligne (exemple  d'utilisation: trigramme), il
+                                suffit d'avoir coché la case "Custom comment" dans le paneau des champs à exporter.
+                            </p>
+                            <p>
+                                Après avoir validé le choix proposé par <a href="">Autocomplete.bin</a>, une modal
+                                apparaît et permet de saisir le commentaire personnalisé. À nouveau, nous te conseillons
+                                d'utiliser la touche <code>Entrée</code> pour valider.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                            {% include "autocomplete_front/image.html" with alt="Affichage des résultats" url="images/custom_comment.png" model="modal.comment" %}
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Exporter le tableau</h6>
+                        <div class="intro-content">
+                            <p>
+                                Pour exporter le tableau, la méthode recommandée est de copier-coller le contenu de
+                                la boite de texte dans un nouveau fichier texte et de l'enregistrer en <code>*.csv</code>
+                            </p>
+                            <p>
+                                Tu peux également cliquer sur le bouton d'export en CSV mais il ne fonctionne pas
+                                toujours bien
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Permanence des résultats</h6>
+                        <div class="intro-content">
+                            <p>
+                                Aucune donnée n'est jamais stockée sur nos serveurs : tout se passe dans ton navigateur.
+                                À chaque mise à jour, ton <code>localStorage</code> est mis à jour. Cela te permet de
+                                quitter la page et d'y revenir en conservant ton travail.
+                            </p>
+                            <p>
+                                Pour commencer une nouvelle liste, tu peux donc utiliser le bouton
+                                <span class="label label-danger">Delete all</span>
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                    </div>
+                </div>
+
+                <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <h6>Accès et authentification</h6>
+                        <div class="intro-content">
+                            <p>
+                                Actuellement, le site est accessible pour toute personne sur le plâtal (IP
+                                en <code>129.104.*</code>) au en se connectant via l'auth CAS (identifiants Frankiz)
+                            </p>
+                            <p>
+                                Pour accéder aux photos Frankiz, il faut soit être sur le plâtal, soit être également
+                                connecté à Frankiz.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
+{% endblock %}
 
+
+{% block scripts %}
+    <script src="{% static "js/lib/vue.js" %}"></script>
+    <script src="{% static "js/lib/vue-strap.js" %}"></script>
+    <script src="{% static "js/intro.js" %}"></script>
 {% endblock %}

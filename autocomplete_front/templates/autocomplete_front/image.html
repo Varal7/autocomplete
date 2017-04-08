@@ -1,0 +1,9 @@
+{% load staticfiles %}
+
+<img class="img-thumbnail" src="{% static url %}" alt="{{ alt }}" @click="{{ model }} = true"/>
+<modal v-model="{{ model }}" title="{{ alt }}">
+    <img class="img-responsive" src="{% static url %}" alt="{{ alt }}" />
+    <div slot="modal-footer" class="modal-footer">
+        <button type="button" class="btn btn-default" @click="{{ model }} = false">Fermer</button>
+    </div>
+</modal>
