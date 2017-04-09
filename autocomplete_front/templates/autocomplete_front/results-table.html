@@ -29,7 +29,7 @@
                         <td class="text-center"><button class="btn btn-success btn-xs" type="submit">Add item</button></td>
                     </tr>
                 <tr v-for="(person, index) in people">
-                    <td>{{ person.uid }}</td>
+                    <td><a role="button" @click="update_current(index)">{{ person.uid }}</a></td>
                     <td v-if="choices.firstname">{{ person.firstname }}</td>
                     <td v-if="choices.lastname">{{ person.lastname }}</td>
                     <td v-if="choices.mail">{{ person.mail }}</td>

@@ -35,6 +35,9 @@ Vue.component('results-table', {
             var new_person = JSON.parse(JSON.stringify(this.new_person));
             this.new_person = JSON.parse(JSON.stringify(this.blank_person));
             this.$emit('add_item', new_person)
+        },
+        update_current: function(i) {
+            this.$emit('update_current', i)
         }
     }
 });
@@ -125,6 +128,9 @@ var app = new Vue({
         },
         update_storage_choices: function() {
             localStorage.choices = JSON.stringify(this.choices);
+        },
+        update_current: function(i) {
+            this.current = this.people[i]
         }
     },
     watch: {
