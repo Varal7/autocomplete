@@ -36,6 +36,7 @@ def get_users_by_uid(uid_substring, promo=None, platal=None, force_all=False):
                             'phone': attribute_getter(x, "brPhone"),
                             'room': attribute_getter(x, "brRoom"),
                             'promo': attribute_getter(x, "brPromo"),
+                            'birthdate': attribute_getter(x, "brBirthdate"),
                             'photo': url_from_photo(attribute_getter(x, "brPhoto")),
                              }, results))
     if not force_all:
