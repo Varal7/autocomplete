@@ -192,6 +192,51 @@
                     </div>
                 </div>
 
+                 <h3>API</h3>
+
+                 <div class="row intro-step">
+                    <div class="col-md-8 vcenter">
+                        <div class="intro-content">
+                            <p>
+                                Nous fournissons également une API qui permet de requêter plus facilement le LDAP de
+                                Frankiz. <br />
+                                L'adresse est :
+                            </p>
+                            <p class="text-center">
+                                <a href="/ldap_search">https://automplete.binets.fr/ldap_search</a>
+                            </p>
+                            <p>
+                               La requête attend trois paramètres GET :
+                            </p>
+                            <ul>
+                                <li>
+                                    <code>q</code> <em>Obligatoire</em> : Une chaîne de caractères indiquant le
+                                    contenu de la recherche
+                                </li>
+                                <li>
+                                    <code>promo</code> <em>Facultatif</em> : Un entier sur laquelle la recherche est
+                                    filtrée. Correspondond au champ <code>brPromo</code>
+                                </li>
+                                <li>
+                                    <code>platal</code> <em>Facultatif</em> : Mettre <code>true</code> s'il faut trier
+                                    la requête pour ne garder que les utilisateurs actuellement sur le plâtal.
+                                </li>
+                            </ul>
+                            <p>
+                                La réponse se fait en JSON et contient soit un tableau <code>users</code> avec la liste
+                                des utilisateurs correspodant à la requête, soit un message d'erreur indiquant qu'il y
+                                a trop de résultats pour être affichés.
+                            </p>
+                        </div>
+                    </div><!--
+                    --><div class="col-md-4 vcenter">
+                    </div>
+                 </div>
+
+                <div class="start-wrapper text-center">
+                    <a href="https://github.com/Varal7/autocomplete.bin" class="btn btn-primary">Code sur GitHub</a>
+                </div>
+                <br />
 
             </div>
         </div>
