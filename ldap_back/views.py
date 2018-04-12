@@ -52,13 +52,14 @@ def ldap_search(request):
     platal = request.GET.get("platal")
     promo = request.GET.get("promo")
     users = []
-    if q and len(q) > 0:
-        try:
-            users = get_users_by_uid(q, promo=promo, platal=platal)
-        except ldap.SIZELIMIT_EXCEEDED:
-            return JsonResponse({"error": "Size limit exceeded. Try a narrower research"})
+    if not q or len(q) == 0:
+        return JsonResponse({"users": users})
+
+    try:
+        users = get_users_by_uid(q, promo=promo, platal=platal)
+    except ldap.SIZELIMIT_EXCEEDED:
+        return JsonResponse({"error": "Size limit exceeded. Try a narrower research"})
     if len(users) == 0:
-        print(q)
         q_nospace = q.replace(" ", ".")
         try:
             users = get_users_by_uid(q_nospace, promo=promo, platal=platal)
