@@ -4,3 +4,4 @@ db.sqlite3
 .idea
 secret.key
 assets
+*.swp
