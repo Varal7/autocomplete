@@ -50,14 +50,16 @@ def get_users_by_uid(uid_substring, promo=None, platal=None, force_all=False):
 
 def ldap_search(request):
     q = request.GET.get("q")
-    q = q.lower()
-    allowed = string.ascii_lowercase + [".", " ", "-"]
-    q = "".join([x for x in q if x in allowed])
-    platal = request.GET.get("platal")
-    promo = request.GET.get("promo")
+
     users = []
     if not q or len(q) == 0:
         return JsonResponse({"users": users})
+
+    q = q.lower()
+    allowed = list(string.ascii_lowercase) + [".", " ", "-"]
+    q = "".join([x for x in q if x in allowed])
+    platal = request.GET.get("platal")
+    promo = request.GET.get("promo")
 
     try:
         users = get_users_by_uid(q, promo=promo, platal=platal)

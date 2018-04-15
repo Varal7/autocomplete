@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 def is_internal(ip):
-    return ip[:8] == "129.104." and ip != "129.104.30.4" and ip != "129.104.30.91" or ip == "127.0.0.1"
+    return ip[:8] == "129.104." and ip != "129.104.30.4" and ip != "129.104.30.90" and ip != "129.104.30.91" or ip == "127.0.0.1"
 
 def needs_login(request):
     return request.path not in [reverse('index'), reverse('login')]
