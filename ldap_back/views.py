@@ -65,7 +65,7 @@ def ldap_search(request):
         users = get_users_by_uid(q, promo=promo, platal=platal)
         if len(users) == 0:
             q_nospace = q.replace(" ", ".")
-        users = get_users_by_uid(q_nospace, promo=promo, platal=platal)
+            users = get_users_by_uid(q_nospace, promo=promo, platal=platal)
     except ldap.SIZELIMIT_EXCEEDED:
         return JsonResponse({
             "users": [{
