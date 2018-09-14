@@ -63,14 +63,29 @@ def ldap_search(request):
 
     try:
         users = get_users_by_uid(q, promo=promo, platal=platal)
+        if len(users) == 0:
+            q_nospace = q.replace(" ", ".")
+        users = get_users_by_uid(q_nospace, promo=promo, platal=platal)
     except ldap.SIZELIMIT_EXCEEDED:
-        return JsonResponse({"error": "Size limit exceeded. Try a narrower research"})
-    if len(users) == 0:
-        q_nospace = q.replace(" ", ".")
-        try:
-            users = get_users_by_uid(q_nospace, promo=promo, platal=platal)
-        except ldap.SIZELIMIT_EXCEEDED:
-            return JsonResponse({"error": "Size limit exceeded. Try a narrower research"})
+        return JsonResponse({
+            "users": [{
+                    "firstname": "Too many results",
+                    "lastname": "",
+                    "promo": "> {}".format(ldap.SIZELIMIT_EXCEEDED),
+                    "mail": "Try a narrow search",
+                    }
+                ]
+            })
+    except Exception as e:
+        return JsonResponse({
+            "users": [{
+                    "firstname": "Error",
+                    "lastname": "",
+                    "promo": "{}".format(e),
+                    "mail": "Please contact the BR or open a Panix ticket",
+                    }
+                ]
+            })
 
     return JsonResponse({"users": users})
 
